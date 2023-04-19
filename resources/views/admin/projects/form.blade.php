@@ -131,15 +131,17 @@
                     
 
                 <div class="col-12 mt-4">
-                    <label for="is_published" class="form-label">
-                        Pubblicato    
-                    </label>
-                    <input type="checkbox" name="is_published" id="is_published" class="@error('is_published') is-invalid @enderror form-check-control" value="1" @checked(old('is_published', $project->is_published))>
-                    @error('is_published')
-                    <div class="invalid-feedback">
-                        {{$message}}
+                    <div class="form-check form-switch">
+                        <label for="is_published" class="form-check-label">
+                            Pubblicato    
+                        </label>
+                        <input type="checkbox" name="is_published" id="is_published" class="@error('is_published') is-invalid @enderror form-check-input" role="switch" value="1" @checked(old('is_published', $project->is_published))>
+                        @error('is_published')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                        @enderror
                     </div>
-                    @enderror
                 </div>
 
                 <div class="offset-8 col-4 text-end my-4">
@@ -147,6 +149,8 @@
                         Salva
                     </button>
                 </div>
+
+               
             </form>
         </div>
     </div>

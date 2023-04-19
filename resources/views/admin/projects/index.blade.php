@@ -63,6 +63,14 @@
                     </a>
                 </th>
                 <th scope="col">
+                    <a href="{{route('admin.projects.index')}}?sort=is_published&order={{$sort == 'is_published' && $order != 'desc' ? 'desc' : 'asc'}}">
+                        Pubblicato
+                        @if ($sort == 'is_published')
+                        <i class="bi bi-caret-down-fill d-inline-block @if($order == 'desc') rotate-180 @endif"></i>
+                        @endif
+                    </a>
+                </th>
+                <th scope="col">
                     <a href="{{route('admin.projects.index')}}?sort=created_at&order={{$sort == 'created_at' && $order != 'desc' ? 'desc' : 'asc'}}">
                         Creazione
                         @if ($sort == 'created_at')
@@ -95,6 +103,11 @@
                         @endforelse 
                     </td>
                     <td>{{$project->getAbstract()}}</td>
+                    <td class="text-center">
+                        <span class="{{$project->is_published ? 'text-success' : 'text-danger'}}">
+                            {!!$project->getIconHTML()!!}
+                        </span>
+                    </td>
                     <td>{{$project->created_at}}</td>
                     <td>{{$project->updated_at}}</td>
                     <td>
@@ -112,7 +125,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="8" scope="row">Nessun risultato</td>
+                    <td colspan="9" scope="row">Nessun risultato</td>
                 </tr>
             @endforelse
         </tbody>

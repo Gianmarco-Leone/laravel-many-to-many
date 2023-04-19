@@ -35,7 +35,7 @@
                     </figcaption>
                 </figure>
 
-                <div class="d-flex justify-content-center mb-4">
+                <div class="d-flex justify-content-evenly mb-4">
                     <p>
                         <strong>Tipologia:</strong>
                         <br>
@@ -60,10 +60,17 @@
                     </div>
                 </div>
 
-                <p>
+                <p class="mb-5">
                     <strong class="text-center">Descrizione:</strong>
                     <br>
                     {{$project->description}}
+                </p>
+
+                <p class="text-start">
+                    <strong>Stato:</strong>
+                    <span class="{{$project->is_published ? 'text-success' : 'text-danger'}}">
+                        {{$project->is_published ? 'Pubblicato' : 'Da pubblicare'}}
+                    </span>
                 </p>
             </div>
         </div>

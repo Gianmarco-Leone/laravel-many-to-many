@@ -63,4 +63,15 @@ class Project extends Model
         }
         return $possible_slug;
     }
+
+    // * HTML
+
+    // Funzione che restituisce un icona html
+    public function getIconHTML() {
+        if ($this->is_published) {
+            return '<i class="bi bi-hand-thumbs-up-fill"></i>';
+        } else {
+            return '<i class="bi bi-hand-thumbs-down-fill"></i>';
+        }
+    }
 }
