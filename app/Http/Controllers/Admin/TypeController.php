@@ -35,7 +35,7 @@ class TypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-     // * Funzione per visualizzare form di creazione type nel DB
+    // * Funzione per visualizzare form di creazione type nel DB
     public function create()
     {
         $type = new Type;

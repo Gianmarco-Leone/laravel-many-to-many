@@ -9,6 +9,8 @@ class Technology extends Model
 {
     use HasFactory;
 
+    protected $fillable = ["label", "color"];
+
     // * RELAZIONI
 
     // Relazione con tabella projects

@@ -10,7 +10,7 @@
     @include('layouts.partials._validation-errors')
 
     <div class="text-center">
-        <h1 class="my-4">{{$type->id ? 'Modifica tipologia - ' . $type->label : 'Aggiungi un nuovo progetto'}}</h1>
+        <h1 class="my-4">{{$type->id ? 'Modifica tipologia - ' . $type->label : 'Aggiungi una nuova tipologia'}}</h1>
 
         <a href="{{route('admin.types.index')}}" class="btn btn-primary">
             Torna alla lista

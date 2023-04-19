@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Technology;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TechnologyController extends Controller
 {
@@ -32,9 +33,12 @@ class TechnologyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+    // * Funzione per visualizzare form di creazione technology nel DB
     public function create()
     {
-        //
+        $technology = new Technology;
+        return view('admin.technologies.form', compact('technology'));
     }
 
     /**
@@ -43,9 +47,18 @@ class TechnologyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    // * Funzione per salvare i dati della technology inseriti tramite il form della view create
     public function store(Request $request)
     {
-        //
+        // Invoco metodo personalizzato che effettua validazioni
+        $data = $this->validation($request->all());
+
+        $technology = new Technology;
+        $technology->fill($data);
+        $technology->save();
+        return to_route('admin.technologies.index', $technology)
+            ->with('message_content', 'Tipologia creata con successo');
     }
 
     /**
@@ -91,5 +104,26 @@ class TechnologyController extends Controller
     public function destroy(Technology $technology)
     {
         //
+    }
+
+    // * VALIDAZIONE
+
+    private function validation($data) {
+        return Validator::make(
+            $data,
+            [
+            'label'=>'required|string|max:30',
+            'color'=>'required|string|size:7'
+            ],
+            [
+            'label.required'=>"L'etichetta è obbligatoria",
+            'label.string'=>"L'etichetta deve essere una stringa",
+            'label.max'=>"L'etichetta deve avere un massimo di 30 caratteri",
+
+            'color.required'=>"Il colore è obbligatorio",
+            'color.string'=>"Il colore deve essere una stringa",
+            'color.size'=>"Il colore deve essere un esadecimale con massimo 7 caratteri es: #ffffff"
+            ],
+        )->validate();
     }
 }
