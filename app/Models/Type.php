@@ -19,7 +19,7 @@ class Type extends Model
     // * HTML
 
     // Funzione che restituisce una pills html
-    public function getBadgeHTML() {
+    public function getPillsHTML() {
         return '<span class="badge rounded-pill" style="background-color:' . $this->color . '">'. $this->label .'</span>';
     }
 }

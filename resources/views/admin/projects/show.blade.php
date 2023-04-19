@@ -35,17 +35,34 @@
                     </figcaption>
                 </figure>
 
-                <p>
-                    <strong>Tipologia:</strong>
-                    @if ($project->type)
-                        {!!$project->type?->getBadgeHTML()!!}
-                    @else
-                        Tipologia non specificata
-                    @endif
-                </p>
+                <div class="d-flex justify-content-center mb-4">
+                    <p>
+                        <strong>Tipologia:</strong>
+                        <br>
+                        @if ($project->type)
+                            {!!$project->type?->getPillsHTML()!!}
+                        @else
+                            Tipologia non specificata
+                        @endif
+                    </p>
+    
+                    <div>
+                        <strong>Tecnologie:</strong>
+                        <ul>
+                            @forelse ($project->technologies as $technology)
+                                <li>
+                                    {!!$technology->getBadgeHTML()!!}
+                                </li>
+                            @empty
+                                Nessuna tecnologia associata
+                            @endforelse 
+                        </ul>
+                    </div>
+                </div>
 
                 <p>
-                    <strong>Descrizione:</strong>
+                    <strong class="text-center">Descrizione:</strong>
+                    <br>
                     {{$project->description}}
                 </p>
             </div>

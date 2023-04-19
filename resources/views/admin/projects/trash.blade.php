@@ -51,6 +51,7 @@
                         @endif
                     </a>
                 </th>
+                <th scope="col">Tecnologie</th>
                 <th scope="col">
                     <a href="{{route('admin.projects.trash')}}?sort=description&order={{$sort == 'description' && $order != 'desc' ? 'desc' : 'asc'}}">
                         Descrizione
@@ -83,7 +84,14 @@
                 <tr>
                     <th scope="row">{{$project->id}}</th>
                     <td>{{$project->title}}</td>
-                    <td>{!!$project->type?->getBadgeHTML()!!}</td>
+                    <td>{!!$project->type?->getPillsHTML()!!}</td>
+                    <td>
+                        @forelse ($project->technologies as $technology)
+                            {!!$technology->getBadgeHTML()!!}
+                        @empty
+                            -
+                        @endforelse 
+                    </td>
                     <td>{{$project->getAbstract()}}</td>
                     <td>{{$project->created_at}}</td>
                     <td>{{$project->updated_at}}</td>
