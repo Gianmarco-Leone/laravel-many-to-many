@@ -1,0 +1,36 @@
+@import "~bootstrap/scss/bootstrap";
+@import "./partials/_header";
+
+a {
+    text-decoration: none;
+}
+
+.btn-icon {
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.rotate-180 {
+    transform: rotate(180deg);
+}
+
+.circle-color-preview {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+}
+
+main {
+    table {
+        td {
+            vertical-align: middle;
+        }
+    }
+
+    input[type="color"] {
+        width: 3rem;
+    }
+}
