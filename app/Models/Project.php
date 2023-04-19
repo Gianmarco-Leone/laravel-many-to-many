@@ -14,15 +14,15 @@ class Project extends Model
     protected $fillable = ["title", "description", "image", "is_published", "type_id"];
 
     // * RELAZIONI
+    
+    // Relazione con tabella technologies
+    public function technologies() {
+        return $this->belongsToMany(Technology::class);
+    }
 
     // Relazione con tabella types
     public function type() {
         return $this->belongsTo(Type::class);
-    }
-
-    // Relazione con tabella technologies
-    public function technlogies() {
-        return $this->belongsToMany(Technology::class);
     }
 
     
