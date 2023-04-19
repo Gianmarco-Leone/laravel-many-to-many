@@ -5,11 +5,15 @@
 
 > Sistema di gestione del Portfolio dei miei progetti.
 
+![Screenshot](./public/img/Screenshot_1.png)
+
 ## Descrizione:
 
 Realizzazione progetto usando laravel breeze ed il pacchetto Laravel 9 Preset con autenticazione.
 
 ## Svolgimento
+
+### Admin
 
 Iniziamo con il definire il layout, `Model`, `Migration`, `Controller` e `Route` necessarie per il sistema portfolio:
 
@@ -19,12 +23,14 @@ Iniziamo con il definire il layout, `Model`, `Migration`, `Controller` e `Route`
 4.  Possibilità di cliccare sul titolo della colonna nella tabella Backoffice per visualizzare risultati in oridine crescente.
     Al successivo click, l'ordine si invertirà, e quello visualizzato sarà quindi decrescente.
     Di default l'ordine di visualizzazione è da quello con la modifica più recente in poi.
-5.  Possibilità di allegare le immagini ai progetti come dei veri e proprio file.
+5.  Possibilità di allegare le immagini ai progetti come dei veri e propri file tramite il `Restore`. Se non viene caricata nessuna immagine o se fallisce l'upload, ne verrà visualizzata una di placeholder
+6.  Creazione di una checkbox per decidere se pubblicare o meno un progetto, se e solo se il check è 'on' questo sarà visibile sul lato guest.
+7.  Aggiunta di una nuova entità `Type`, con rispettive `CRUD`, che è in relazione one to many con i progetti.
+8.  Aggiunta di una nuova entità `Technology`, con rispettive `CRUD`, che è in relazione many to many con i progetti.
+9.  Aggiunta della `softDelete()` per avere un cestino dove spostare i record alla prima eliminazione. Dal cestino è poi possibile reinserire gli elementi nel DB o eliminarli definitivamente
+    ![Screenshot](./public/img/Screenshot_trash.png)
 
-## Bonus
+### Guest
 
-1.  Dividete i fogli di stile front e back office e realizzate una homepage del sito in cui visualizzare i progetti per tutti gli utenti Guest in formato "card".
-    ![Screenshot](./public/img/Screenshot_bonus_1.png)
-
-2.  Sul click su una card mostrare una pagina di dettaglio.
-    ![Screenshot](./public/img/Screenshot_bonus_2.png)
+1.  Visualizzazione progetti lato client.
+    ![Screenshot](./public/img/Screenshot_guest.png)
