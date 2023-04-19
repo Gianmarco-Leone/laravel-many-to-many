@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page-name', $type->label)
+@section('page-name', $technology->label)
 
 @section('content')
 
@@ -12,14 +12,14 @@
             </div>
         @endif
 
-        <h1 class="my-4">Dettaglio - {{$type->label}}</h1>
+        <h1 class="my-4">Dettaglio - {{$technology->label}}</h1>
 
         <div class="d-flex justify-content-center">
-            <a href="{{route('admin.types.index')}}" class="btn btn-primary me-3">
+            <a href="{{route('admin.technologies.index')}}" class="btn btn-primary me-3">
                 Torna alla lista
             </a>
     
-            <a href="{{route('admin.types.edit', $type)}}" class="btn btn-primary ms-3">
+            <a href="{{route('admin.technologies.edit', $technology)}}" class="btn btn-primary ms-3">
                 Modifica tipologia
             </a>
         </div>
@@ -29,12 +29,12 @@
                 <div class="row justify-content-center">
                     <div class="col-4 my-5">
                         <p class="fw-semibold">
-                            {{$type->label}}
+                            {{$technology->label}}
                         </p>
                     </div>
                     <div class="col-4 my-5">
                         <p class="fw-semibold">
-                            {!!$type->getBadgeHTML()!!}
+                            {!!$technology->getBadgeHTML()!!}
                         </p>
                     </div>
                 </div>

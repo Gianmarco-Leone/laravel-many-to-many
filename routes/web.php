@@ -8,6 +8,7 @@ use App\Http\Controllers\Guest\HomeController as GuestHomeController;
 // * Admin
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\TechnologyController;
 use App\Http\Controllers\Admin\TypeController;
 
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,7 @@ Route::middleware('auth')
     ->prefix('/admin')
     ->name('admin.')
     ->group(function () {
+        // * Rotte softDelete
         Route::get('projects/trash', [ProjectController::class, 'trash'])->name('projects.trash');
         Route::put('projects/{project}/restore', [ProjectController::class, 'restore'])->name('projects.restore');
         Route::delete('projects/{project}/forcedelete', [ProjectController::class, 'forcedelete'])->name('projects.forcedelete');
@@ -45,6 +47,9 @@ Route::middleware('auth')
 
         // * Risorsa Type
         Route::resource('types', TypeController::class)->except(['show']);
+
+        // * Risorsa Technology
+        Route::resource('technologies', TechnologyController::class)->except(['show']);
     });
 
 // * Rotte profilo

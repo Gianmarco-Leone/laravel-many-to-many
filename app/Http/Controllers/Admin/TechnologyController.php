@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Models\Technology;
+
 use Illuminate\Http\Request;
 
 class TechnologyController extends Controller
@@ -14,9 +15,16 @@ class TechnologyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    // * Funzione per visualizzare lista technologies DB
+    public function index(Request $request)
     {
-        //
+        $sort = (!empty($sort_request=$request->get('sort'))) ? $sort_request : "updated_at";
+
+        $order = (!empty($order_request=$request->get('order'))) ? $order_request : 'desc';
+
+        $technologies = Technology::orderBy($sort, $order)->paginate(15)->withQueryString();
+        return view('admin.technologies.index', compact('technologies', 'sort', 'order'));
     }
 
     /**

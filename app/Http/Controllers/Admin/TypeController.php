@@ -17,7 +17,7 @@ class TypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-     // * Funzione per visualizzare lista types DB
+    // * Funzione per visualizzare lista types DB
     public function index(Request $request)
     {
 
