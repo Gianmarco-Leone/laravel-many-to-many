@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Support\Str;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -14,13 +13,20 @@ class Project extends Model
 
     protected $fillable = ["title", "description", "image", "is_published", "type_id"];
 
-    // * Relazione con table types
+    // * RELAZIONI
+
+    // Relazione con tabella types
     public function type() {
         return $this->belongsTo(Type::class);
     }
 
+    // Relazione con tabella technologies
+    public function technlogies() {
+        return $this->belongsToMany(Technology::class);
+    }
+
     
-    // * Getter
+    // * GETTER
 
      // Funzione che ritorna una sottostringa e accetta come parametro il numero massimo di caratteri desiderati, con un valore di default di 30
      public function getAbstract($max = 30) {
@@ -32,7 +38,7 @@ class Project extends Model
         return $this->image ? asset('storage/' . $this->image) : 'https://www.grouphealth.ca/wp-content/uploads/2018/05/placeholder-image.png';
     }
 
-    // * Mutators
+    // * MUTATORS
 
     protected function getCreatedAtAttribute($value) {
         return date('d/m/Y', strtotime($value));
@@ -42,7 +48,7 @@ class Project extends Model
         return date('d/m/Y', strtotime($value));
     }
 
-    // * Unique slug per il title
+    // * GENERAL
 
     // Funzione statica per generare uno slug unico che aggiunge un "-" più un numero crescente se riscontra nel DB uno slug uguale a quello che il sistema prova ad inserire
     public static function generateSlug($title) {
