@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
 use App\Models\Project;
+use App\Models\Technology;
 use App\Models\Type;
 
 use Illuminate\Http\Request;
@@ -43,7 +44,8 @@ class ProjectController extends Controller
     {
         $project = new Project;
         $types = Type::orderBy('label')->get();
-        return view('admin.projects.form', compact('project', 'types'));
+        $technologies = Technology::orderBy('label')->get();
+        return view('admin.projects.form', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -99,7 +101,9 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::orderBy('label')->get();
-        return view('admin.projects.form', compact('project', 'types'));
+        $technologies = Technology::orderBy('label')->get();
+        $project_technologies = $project->technologies->pluck('id')->toArray();
+        return view('admin.projects.form', compact('project', 'types', 'technologies', 'project_technologies'));
     }
 
     /**
@@ -130,6 +134,12 @@ class ProjectController extends Controller
         $project->slug = Project::generateSlug($project->title);
         $project->is_published = $request->has('is_published') ? 1 : 0;
         $project->save();
+
+        if(Arr::exists($data, 'technologies'))
+            $project->technologies()->sync($data['technologies']);
+        else 
+            $project->technologies()->detach();
+
         return to_route('admin.projects.show', $project)
         ->with('message_content', 'Progetto ' . $project->title . ' modificato con successo');
     }

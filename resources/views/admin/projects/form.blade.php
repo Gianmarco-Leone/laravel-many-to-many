@@ -58,7 +58,7 @@
                             </div>
                             @enderror
                         </div>
-    
+
                         <div class="col-8">
                             <label for="image" class="form-label">
                                 Immagine    
@@ -76,17 +76,46 @@
                     </div>
                 </div>
     
-                <div class="col-8">
-                    <label for="description" class="form-label">
-                        Descrizione    
-                    </label>
-                    <textarea name="description" id="description" class="@error('description') is-invalid @enderror form-control"  rows="6">{{old('description', $project->description)}}</textarea>
-                    @error('description')
-                    <div class="invalid-feedback">
-                        {{$message}}
+                <div class="col-8 d-flex flex-column justify-content-between">
+                    <div class="row">
+                        
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-3">
+                                    Tecnologie usate:
+                                </div>
+                                <div class="col-9">
+                                    @foreach ($technologies as $technology)
+                                        <label for="technology-{{$technology->id}}" class="form-label">
+                                            {{$technology->label}}    
+                                        </label>
+                                        <input type="checkbox" value="{{$technology->id}}" name="tags[]" id="technology-{{$technology->id}}"
+                                        @if(in_array($technology->id, $project_technologies ?? [])) checked @endif>
+                                    @endforeach
+                                    @error('technology-{{$technology->id}}')
+                                        <div class="invalid-feedback">
+                                            {{$message}}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>            
+                        </div>
+
+                        <div class="col-12">
+                            <label for="description" class="form-label">
+                                Descrizione    
+                            </label>
+                            <textarea name="description" id="description" class="@error('description') is-invalid @enderror form-control"  rows="6">{{old('description', $project->description)}}</textarea>
+                            @error('description')
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                            @enderror
+                        </div>
+
                     </div>
-                    @enderror
                 </div>
+                    
 
                 <div class="col-12 mt-4">
                     <label for="is_published" class="form-label">
