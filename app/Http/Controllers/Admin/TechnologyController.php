@@ -58,7 +58,7 @@ class TechnologyController extends Controller
         $technology->fill($data);
         $technology->save();
         return to_route('admin.technologies.index', $technology)
-            ->with('message_content', 'Tipologia creata con successo');
+            ->with('message_content', 'Tecnologia creata con successo');
     }
 
     /**
@@ -67,9 +67,11 @@ class TechnologyController extends Controller
      * @param  \App\Models\Technology  $technology
      * @return \Illuminate\Http\Response
      */
+
+    // * Funzione per visualizzare dettaglio elemento DB
     public function show(Technology $technology)
     {
-        //
+        return view('admin.technologies.show', compact('technology'));
     }
 
     /**
@@ -78,9 +80,11 @@ class TechnologyController extends Controller
      * @param  \App\Models\Technology  $technology
      * @return \Illuminate\Http\Response
      */
+
+    // * Funzione per visualizzare form modifica technology
     public function edit(Technology $technology)
     {
-        //
+        return view('admin.technologies.form', compact('technology'));
     }
 
     /**
@@ -90,9 +94,16 @@ class TechnologyController extends Controller
      * @param  \App\Models\Technology  $technology
      * @return \Illuminate\Http\Response
      */
+
+    // * Funzione per salvare modifiche apportate nel form
     public function update(Request $request, Technology $technology)
     {
-        //
+        // Invoco metodo personalizzato che effettua validazioni
+        $data = $this->validation($request->all());
+
+        $technology->update($data);
+        return to_route('admin.technologies.index', $technology)
+        ->with('message_content', 'Tecnologia ' . $technology->title . ' modificata con successo');
     }
 
     /**
@@ -103,7 +114,10 @@ class TechnologyController extends Controller
      */
     public function destroy(Technology $technology)
     {
-        //
+        $technology->delete();
+        return to_route('admin.technologies.index')
+                ->with('message_type', 'danger')
+                ->with('message_content', 'Tecnologia ' . $technology->label . ' eliminata con successo.');
     }
 
     // * VALIDAZIONE

@@ -72,7 +72,7 @@ class TypeController extends Controller
     // * Funzione per visualizzare dettaglio elemento DB
     public function show(Type $type)
     {
-        return view('admin.types.index', compact('type'));
+        return view('admin.types.show', compact('type'));
     }
 
 
@@ -83,7 +83,7 @@ class TypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    // * Funzione per visualizzare dettaglio elemento DB
+    // * Funzione per visualizzare form modifica type
     public function edit(Type $type)
     {
         return view('admin.types.form', compact('type'));
@@ -96,6 +96,8 @@ class TypeController extends Controller
      * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
+
+    // * Funzione per salvare modifiche apportate nel form
     public function update(Request $request, Type $type)
     {
         // Invoco metodo personalizzato che effettua validazioni
