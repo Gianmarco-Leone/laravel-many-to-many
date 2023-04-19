@@ -4,10 +4,14 @@
 
 @section('content')
 
-<section class="container pt-4">
+<div class="container pt-4">
 
     <!-- Se sono presenti errori nella compilazione del form -->
     @include('layouts.partials._validation-errors')
+
+</div>
+
+<section class="container">
 
     <div class="text-center">
         <h1 class="my-4">{{$project->id ? 'Modifica progetto - ' . $project->title : 'Aggiungi un nuovo progetto'}}</h1>
@@ -81,18 +85,27 @@
                         
                         <div class="col-12">
                             <div class="row">
-                                <div class="col-3">
+                                <div class="col-3 form-label">
                                     Tecnologie usate:
                                 </div>
                                 <div class="col-9">
-                                    @foreach ($technologies as $technology)
-                                        <label for="technology-{{$technology->id}}" class="form-label">
-                                            {{$technology->label}}    
-                                        </label>
-                                        <input type="checkbox" value="{{$technology->id}}" name="tags[]" id="technology-{{$technology->id}}"
-                                        @if(in_array($technology->id, $project_technologies ?? [])) checked @endif>
-                                    @endforeach
-                                    @error('technology-{{$technology->id}}')
+                                    <div class="form-check @error('technologies')is-invalid @enderror">
+                                        @foreach ($technologies as $technology)
+                                            <label for="technology-{{$technology->id}}">
+                                                {{$technology->label}}    
+                                            </label>
+                                            <input 
+                                                type="checkbox" 
+                                                value="{{$technology->id}}" 
+                                                name="technologies[]" 
+                                                id="technology-{{$technology->id}}"
+                                                @if(in_array($technology->id, old('technologies', $project_technologies ?? []))) checked @endif
+                                                class="form-check-control"
+                                            >
+                                        @endforeach
+                                    </div>
+                                    
+                                    @error('technologies')
                                         <div class="invalid-feedback">
                                             {{$message}}
                                         </div>

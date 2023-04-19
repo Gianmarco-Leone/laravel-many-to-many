@@ -25,31 +25,33 @@ a {
 }
 
 main {
-    table {
-        th {
-            font-size: 0.9rem;
+    section {
+        table {
+            th {
+                font-size: 0.9rem;
+            }
+
+            td {
+                vertical-align: middle;
+                font-size: 0.8rem;
+            }
+
+            i,
+            .btn-icon {
+                font-size: 1rem;
+            }
         }
 
-        td {
-            vertical-align: middle;
-            font-size: 0.8rem;
+        input[type="color"] {
+            width: 3rem;
         }
 
-        i,
-        .btn-icon {
-            font-size: 1rem;
-        }
-    }
+        ul {
+            list-style: none;
 
-    input[type="color"] {
-        width: 3rem;
-    }
-
-    ul {
-        list-style: none;
-
-        li {
-            display: inline-block;
+            li {
+                display: inline-block;
+            }
         }
     }
 }

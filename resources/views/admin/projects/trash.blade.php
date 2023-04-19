@@ -107,7 +107,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7">Cestino vuoto</td>
+                    <td colspan="8">Cestino vuoto</td>
                 </tr>
             @endforelse
         </tbody>

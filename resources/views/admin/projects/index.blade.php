@@ -112,7 +112,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7" scope="row">Nessun risultato</td>
+                    <td colspan="8" scope="row">Nessun risultato</td>
                 </tr>
             @endforelse
         </tbody>

@@ -74,6 +74,9 @@ class ProjectController extends Controller
         $project->slug = Project::generateSlug($project->title);
         $project->is_published = $request->has('is_published') ? 1 : 0;
         $project->save();
+
+        if(Arr::exists($data, 'technologies')) $project->technologies()->attach($data['technologies']);
+
         return to_route('admin.projects.show', $project)
             ->with('message_content', 'Nuovo progetto aggiunto con successo');
     }
@@ -201,6 +204,10 @@ class ProjectController extends Controller
     {
         $project = Project::where('id', $id)->onlyTrashed()->first();
         if ($project->image) Storage::delete($project->image);
+
+        // * In questo caso non servirebbe perchè nella migration è stato specificato cascadeOnDelete() però per stare sicuri faccio un detach() dei record collegati
+        $project->technologies()->detach();
+
         $project->forceDelete();
         return to_route('admin.projects.trash')->with('message_content', 'Progetto eliminato definitivamente!')
             ->with('message_type', 'danger');
@@ -217,7 +224,8 @@ class ProjectController extends Controller
             'image'=>'nullable|image|mimes:jpg,jpeg,png',
             'description'=>'required|string',
             'is_published' => 'boolean',
-            'type_id' => 'nullable|exists:types,id'
+            'type_id' => 'nullable|exists:types,id',
+            'technologies' => 'nullable|exists:technologies,id'
             ],
             [
             'title.required'=>"Il titolo è obbligatorio",
@@ -232,7 +240,9 @@ class ProjectController extends Controller
 
             'is_published.boolean' => '"Pubblicato" puù assumere solo valori di 1 o 0',
 
-            'type_id.exists' => 'L\'ID della tipologia non è valido'
+            'type_id.exists' => 'L\'ID della tipologia non è valido',
+
+            'technologies.exists' => 'Le tecnologie selezionate non sono valide'
             ],
         )->validate();
     }
