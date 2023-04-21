@@ -41,11 +41,11 @@ class Project extends Model
     // * MUTATORS
 
     protected function getCreatedAtAttribute($value) {
-        return date('d/m/Y', strtotime($value));
+        return date('d/m/Y H:i', strtotime($value));
     }
 
     protected function getUpdatedAtAttribute($value) {
-        return date('d/m/Y', strtotime($value));
+        return date('d/m/Y H:i', strtotime($value));
     }
 
     // * GENERAL
@@ -69,9 +69,9 @@ class Project extends Model
     // Funzione che restituisce un icona html
     public function getIconHTML() {
         if ($this->is_published) {
-            return '<i class="bi bi-hand-thumbs-up-fill"></i>';
+            return '<i class="bi bi-check-lg"></i>';
         } else {
-            return '<i class="bi bi-hand-thumbs-down-fill"></i>';
+            return '<i class="bi bi-x-lg"></i>';
         }
     }
 }

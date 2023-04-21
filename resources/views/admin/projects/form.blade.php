@@ -31,118 +31,114 @@
                 <form method="POST" action="{{route('admin.projects.store')}}" enctype="multipart/form-data" class="row">
             @endif 
                 @csrf
-    
-                <div class="col-4">
-                    <div class="row">
-                        <div class="col-12 mb-4">
-                            <label for="title" class="form-label">
-                                Titolo    
-                            </label> 
-                            <input type="text" name="title" id="title" class="@error('title') is-invalid @enderror form-control" value="{{old('title', $project->title)}}">
-                            @error('title')
-                            <div class="invalid-feedback">
-                                {{$message}}
-                            </div>
-                            @enderror
+                    <div class="col-6 mb-4">
+                        <label for="title" class="form-label">
+                            Titolo    
+                        </label> 
+                        <input type="text" name="title" id="title" class="@error('title') is-invalid @enderror form-control" value="{{old('title', $project->title)}}">
+                        @error('title')
+                        <div class="invalid-feedback">
+                            {{$message}}
                         </div>
-
-                        <div class="col-12 mb-4">
-                            <label for="type_id" class="form-label">
-                                Tipologia    
-                            </label> 
-                            <select name="type_id" id="type_id" class="@error('type_id') is-invalid @enderror form-select">
-                                <option value="">Non specificato</option>
-                                @foreach($types as $type)
-                                    <option value="{{$type->id}}" @if(old('type_id', $project->type_id) == $type->id) selected @endif>{{$type->label}}</option>
-                                @endforeach
-                            </select>
-                            @error('type_id')
-                            <div class="invalid-feedback">
-                                {{$message}}
-                            </div>
-                            @enderror
-                        </div>
-
-                        <div class="col-8">
-                            <label for="image" class="form-label">
-                                Immagine    
-                            </label> 
-                            <input type="file" name="image" id="image" class="@error('image') is-invalid @enderror form-control" value="{{old('image', $project->image)}}">
-                            @error('image')
-                            <div class="invalid-feedback">
-                                {{$message}}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="col-4 border p-2">
-                            <img src="{{$project->getImageUri()}}" alt="{{$project->title}}" class="img-fluid" id="image_preview">
-                        </div>
-                    </div>
-                </div>
-    
-                <div class="col-8 d-flex flex-column justify-content-between">
-                    <div class="row">
-                        
-                        <div class="col-12">
-                            <div class="row">
-                                <div class="col-3 form-label">
-                                    Tecnologie usate:
-                                </div>
-                                <div class="col-9">
-                                    <div class="form-check @error('technologies')is-invalid @enderror">
-                                        @foreach ($technologies as $technology)
-                                            <label for="technology-{{$technology->id}}">
-                                                {{$technology->label}}    
-                                            </label>
-                                            <input 
-                                                type="checkbox" 
-                                                value="{{$technology->id}}" 
-                                                name="technologies[]" 
-                                                id="technology-{{$technology->id}}"
-                                                @if(in_array($technology->id, old('technologies', $project_technologies ?? []))) checked @endif
-                                                class="form-check-control"
-                                            >
-                                        @endforeach
-                                    </div>
-                                    
-                                    @error('technologies')
-                                        <div class="invalid-feedback">
-                                            {{$message}}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>            
-                        </div>
-
-                        <div class="col-12">
-                            <label for="description" class="form-label">
-                                Descrizione    
-                            </label>
-                            <textarea name="description" id="description" class="@error('description') is-invalid @enderror form-control"  rows="6">{{old('description', $project->description)}}</textarea>
-                            @error('description')
-                            <div class="invalid-feedback">
-                                {{$message}}
-                            </div>
-                            @enderror
-                        </div>
-
-                    </div>
-                </div>
-                    
-
-                <div class="col-12 mt-4">
-                    <div class="form-check form-switch">
-                        <label for="is_published" class="form-check-label">
-                            Pubblicato    
-                        </label>
-                        <input type="checkbox" name="is_published" id="is_published" class="@error('is_published') is-invalid @enderror form-check-input" role="switch" value="1" @checked(old('is_published', $project->is_published))>
-                        @error('is_published')
-                            <div class="invalid-feedback">
-                                {{$message}}
-                            </div>
                         @enderror
                     </div>
-                </div>
+
+                    <div class="col-6 mb-4">
+                        <label for="type_id" class="form-label">
+                            Tipologia    
+                        </label> 
+                        <select name="type_id" id="type_id" class="@error('type_id') is-invalid @enderror form-select">
+                            <option value="">Non specificato</option>
+                            @foreach($types as $type)
+                                <option value="{{$type->id}}" @if(old('type_id', $project->type_id) == $type->id) selected @endif>{{$type->label}}</option>
+                            @endforeach
+                        </select>
+                        @error('type_id')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                        @enderror
+                    </div>
+
+                    <div class="col-12 mb-4">
+                        <div class="row">
+                            <div class="col-3 form-label">
+                                Tecnologie usate:
+                            </div>
+                            <div class="col-9">
+                                <div class="form-check @error('technologies')is-invalid @enderror">
+                                    @foreach ($technologies as $technology)
+                                        <label for="technology-{{$technology->id}}" class="me-3">
+                                            {{$technology->label}}    
+                                        </label>
+                                        <input 
+                                            type="checkbox" 
+                                            value="{{$technology->id}}" 
+                                            name="technologies[]" 
+                                            id="technology-{{$technology->id}}"
+                                            @if(in_array($technology->id, old('technologies', $project_technologies ?? []))) checked @endif
+                                            class="form-check-control"
+                                        >
+                                    @endforeach
+                                </div>
+                                
+                                @error('technologies')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>            
+                    </div>
+
+                    <!-- Sezione upload immagine + anteprima -->
+                    <div class="col-8">
+                        <label for="image" class="form-label">
+                            Immagine    
+                        </label> 
+                        <input type="file" name="image" id="image" class="@error('image') is-invalid @enderror form-control" value="{{old('image', $project->image)}}">
+                        @error('image')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                        @enderror
+                    </div>
+
+                    <div class="col-4 border p-2">
+                        <img src="{{$project->getImageUri()}}" alt="{{$project->title}}" class="img-fluid" id="image_preview">
+                    </div>
+
+                    <div class="col-12">
+                        <label for="description" class="form-label">
+                            Descrizione    
+                        </label>
+                        <textarea name="description" id="description" class="@error('description') is-invalid @enderror form-control"  rows="6">{{old('description', $project->description)}}</textarea>
+                        @error('description')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                        @enderror
+                    </div>
+
+                    <div class="col-2 mt-4">
+                        <div class="form-check form-switch">
+                            <label for="is_published" class="form-check-label">
+                                Pubblicato    
+                            </label>
+                            <input type="checkbox" name="is_published" id="is_published" class="@error('is_published') is-invalid @enderror form-check-input" role="switch" value="1" @checked(old('is_published', $project->is_published))>
+                            @error('is_published')
+                                <div class="invalid-feedback">
+                                    {{$message}}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+
+
+                    
+                    
+
+                
 
                 <div class="offset-8 col-4 text-end my-4">
                     <button type="submit" class="btn btn-primary">

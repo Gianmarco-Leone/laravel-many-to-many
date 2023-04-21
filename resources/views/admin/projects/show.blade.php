@@ -35,7 +35,7 @@
                     </figcaption>
                 </figure>
 
-                <div class="d-flex justify-content-evenly mb-4">
+                <div class="d-flex flex-wrap justify-content-evenly mb-4">
                     <p>
                         <strong>Tipologia:</strong>
                         <br>
@@ -58,6 +58,18 @@
                             @endforelse 
                         </ul>
                     </div>
+
+                    <p>
+                        <strong>Creato il:</strong>
+                        <br>
+                        {{$project->created_at}}
+                    </p>
+    
+                    <p>
+                        <strong>Ultima modifica:</strong>
+                        <br>
+                        {{$project->updated_at}}
+                    </p>
                 </div>
 
                 <p class="mb-5">
